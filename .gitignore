@@ -1,9 +1,5 @@
-# Ignore the build and lib dirs
-build
-lib/*
-
-# Ignore any executables
-bin/*
+game
+*.o
 
 # Ignore Mac specific files
 .DS_Store
