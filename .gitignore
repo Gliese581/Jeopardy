@@ -1,5 +1,5 @@
 game
-*.o
+obj/*.o
 
 # Ignore Mac specific files
 .DS_Store

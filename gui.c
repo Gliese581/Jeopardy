@@ -10,7 +10,7 @@ int window_start() {
 	getmaxyx(stdscr,row,col);				/* get the number of rows and columns */
 	mvprintw(row/2,(col-strlen(mesg))/2,"%s",mesg);
 											/* print the message at the center of the screen */
-	mvprintw(row-2,0,"Press <Enter> to enter game or <q> to exit.\n");
+	mvprintw(row-1,0,"Press <q> to exit.\n");
 	refresh();
 	getch();
 	endwin();

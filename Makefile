@@ -2,16 +2,19 @@ CC = gcc
 CFLAGS = -std=c99 -Wall -c
 LFLAGS = -lncurses
 
+OBJDIR = obj
+
+OBJ = $(addprefix $(OBJDIR)/, game.o gui.o)
+
 all: game
 
-game: game.o gui.o
-	$(CC) $(LFLAGS) game.o gui.o -o game
+game: $(OBJ)
+	$(CC) $(LFLAGS) $(OBJ) -o game
 
-game.o: game.c
-	$(CC) $(CFLAGS) game.c
-
-gui.o: gui.c
-	$(CC) $(CFLAGS) gui.c
+$(OBJDIR)/%.o: %.c 
+	@mkdir -p $(@D)
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	rm *.o game
+	rm obj/*.o game
+	rmdir obj
