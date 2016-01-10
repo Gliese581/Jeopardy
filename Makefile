@@ -1,21 +1,31 @@
 CC = gcc
-CFLAGS = -I ./include -std=c99 -Wall -c -g
+
+CFLAGS = -I ./lib -std=c99 -Wall -c -g
 LFLAGS = -lncurses
 
-OBJDIR = obj
+OS = $(shell uname)
+
 SRCDIR = src
+OBJDIR = obj
+SRC = $(wildcard $(SRCDIR)/*.c)
+OBJ = $(addprefix $(OBJDIR)/,$(notdir $(SRC:.c=.o)))
 
-OBJ = $(addprefix $(OBJDIR)/, game.o gui.o render.o)
+ifeq ($(findstring Linux,$(OS)),Linux)
+	EXEC = jeopardy
+endif
 
-all: game
+all: $(EXEC)
 
-game: $(OBJ)
-	$(CC) $(LFLAGS) $(OBJ) -o game
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.c 
-	@mkdir -p $(@D)
-	$(CC) -c $(CFLAGS) $< -o $@
+$(EXEC): $(OBJ)
+	$(CC) $(OBJ) $(LFLAGS) -o $@
+			
+obj/%.o: src/%.c | obj
+	$(CC) $< -c $(CFLAGS) -o $@
+			
+obj:
+	mkdir obj
 
 clean:
-	rm obj/*.o game
-	rmdir obj
+	rm $(OBJ)
+	rmdir $(OBJDIR)
+	rm $(EXEC)
