@@ -2,9 +2,9 @@
 #include "render.h"
 #include <unistd.h>
 
+
 int window_start() {
 	int max_y, max_x;
-	char text[] = "Hallo";
 	
 	initscr();
 	noecho();						// dont print keyboard input
@@ -14,8 +14,8 @@ int window_start() {
 	
 	getmaxyx(stdscr, max_y, max_x);
 	
-	WINDOW *win_background =	newwin(max_y, max_x-1, 0, 1);
-	WINDOW *win_text =			newwin(20, 40, (max_y/2)-10, (max_x/2)-20);
+	WINDOW *win_background	= newwin(max_y, max_x-1, 0, 1);
+	WINDOW *win_logo		= newwin(9, 72, (max_y/2)-4, (max_x/2)-36);
 	
 	// draw our borders
 	draw_border(win_background);
@@ -23,13 +23,21 @@ int window_start() {
 	
 	wrefresh(win_background);
 	
-	draw_text(win_text, text);
-	wrefresh(win_text);
+	//draw_logo(win_text);
+	//wrefresh(win_text);
 
-	getch();
+	int n = 0;
+	while(n < 10) {
+		draw_border(win_logo);
+		draw_logo(win_logo);
+		napms(1000);
+		wclear(win_logo);
+		n++;
+		getch();
+	}
 
 	delwin(win_background);
-	delwin(win_text);
+	delwin(win_logo);
 
 	endwin();
 	

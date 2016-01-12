@@ -1,6 +1,9 @@
 jeopardy
+jeopardy.exe
 obj/
 obj/*
+objw32/
+objw32/*
 
 # Ignore Mac specific files
 .DS_Store

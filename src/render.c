@@ -2,22 +2,28 @@
 #include <string.h>
 #include <unistd.h>
 
-void draw_text(WINDOW *screen, char *text) {
-	for (int i = 0; i < strlen(text); i++) {
-		char letter_array[3];
-		get_letter_array(letter_array, text[i]);
-		for (int j = 0; j < 3; j++) {
-			mvwprintw(screen, j, i, "%c", letter_array[j]);
-		}
+char *JeopardyLogo[9] =
+{
+	"",
+	"JJJJJJJ  EEEEEEE    OOO    PPPPPP      A     RRRRRR   DDDDD    Y     Y",
+    "      J  E         O   O   P     P    A A    R     R  D    D    Y   Y ",
+    "      J  E        O     O  P     P   A   A   R     R  D     D    Y Y  ",
+    "      J  EEEEE    O     O  PPPPPP   AAAAAAA  RRRRRR   D     D     Y   ",
+    "      J  E        O     O  P        A     A  R R      D     D     Y   ",
+    "     J   E         O   O   P        A     A  R  R     D    D     Y    ",
+    " JJJJ    EEEEEEE    OOO    P        A     A  R   R    DDDDD     Y     ",
+    ""
+};
+
+void draw_logo(WINDOW *screen) {
+    int i = 0;
+	while (JeopardyLogo[i]) {
+		mvwaddstr(screen, i, 1, JeopardyLogo[i]);
+		wrefresh(screen);
+		napms(200);
+		i++;
 	}
 }
-
-void get_letter_array(char *letter_array, char letter) {
-	letter_array[0] = letter;
-	letter_array[1] = letter;
-	letter_array[2] = letter;
-}
-
 void draw_border(WINDOW *screen) {
 	int x, y, i;
 	getmaxyx(screen, y, x);
