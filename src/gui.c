@@ -7,11 +7,17 @@ int window_start() {
 	int max_y, max_x;
 	
 	initscr();
+	start_color();
+	clear();
+	refresh();
+	
+	init_color(COLOR_LOGO, 1000, 500, 1000);
+	init_pair(1, COLOR_LOGO, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	
 	noecho();						// dont print keyboard input
 	curs_set(FALSE);				// hide cursor
 
-	refresh();
-	
 	getmaxyx(stdscr, max_y, max_x);
 	
 	WINDOW *win_background	= newwin(max_y, max_x-1, 0, 1);
@@ -19,23 +25,14 @@ int window_start() {
 	
 	// draw our borders
 	draw_border(win_background);
-	mvwprintw(win_background, max_y-1, 5, "|| Press <q> to exit ||");
-	
+	mvwaddstr(win_background, max_y-1, 5, "|| Press <q> to exit||");
 	wrefresh(win_background);
 	
-	//draw_logo(win_text);
-	//wrefresh(win_text);
+	wattrset(win_logo, A_ALTCHARSET | COLOR_PAIR(1));
+	draw_logo(win_logo);
 
-	int n = 0;
-	while(n < 10) {
-		draw_border(win_logo);
-		draw_logo(win_logo);
-		napms(1000);
-		wclear(win_logo);
-		n++;
-		getch();
-	}
-
+	while (getch() != 'q') { }
+	
 	delwin(win_background);
 	delwin(win_logo);
 
