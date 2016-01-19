@@ -1,9 +1,18 @@
+# Executables and Objects
 jeopardy
 jeopardy.exe
 obj/
 obj/*
-objw32/
-objw32/*
+
+# Tempfiles
+*.swp
+
+# Music and Sounds
+*.wav
+*.ogg
+
+# Fonts
+*.ttf
 
 # Ignore Mac specific files
 .DS_Store
