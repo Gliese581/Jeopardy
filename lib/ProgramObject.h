@@ -18,20 +18,19 @@ class ProgramObject {
     ProgramState state;
     UniqueWindow window;
     UniqueRenderer renderer;
-    TextRenderer text_renderer;
-    TextObject sample_text_object;
+    TextRenderer text_renderer_H0;
+    TextObject text_object_jeopardy;
     UniqueChunk sample_chunk;
-    UniqueMusic sample_music;
+    UniqueMusic music_jeopardy;
   public:
     ProgramObject():
         state(ProgramState::Running),
         window(SDL_CreateWindow(APPLICATION, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, 0)),
         renderer(SDL_CreateRenderer(window.get(), 0, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED)),
-        text_renderer(renderer.get(), base_path+"assets/fonts/jeopardy.ttf", 32),
-        sample_text_object(text_renderer.BakeString("d1p0")),
+        text_renderer_H0(renderer.get(), base_path+"assets/fonts/jeopardy.ttf", 96),
+        text_object_jeopardy(text_renderer_H0.BakeString("Jeopardy")),
         sample_chunk(Mix_LoadWAV((base_path+"assets/sounds/jdaily2x.wav").c_str())),
-        //sample_music(Mix_LoadMUS((base_path+"assets/Dandelions.ogg").c_str()))
-        sample_music(Mix_LoadMUS((base_path+"assets/music/jeopardy.wav").c_str()))
+        music_jeopardy(Mix_LoadMUS((base_path+"assets/music/benson.wav").c_str()))
     {
     }
 

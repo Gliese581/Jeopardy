@@ -28,9 +28,11 @@ bool ProgramObject::ProcessEvent(const SDL_Event &event) {
 }
 
 void ProgramObject::MainLoop() {
+	if (SDL_SetWindowFullscreen(window.get(), SDL_WINDOW_FULLSCREEN) != 0) {
+        cerr << "Unable to initialize Fullscreen: " << SDL_GetError() << endl;
+	}
     StartMusic();
-	SDL_SetWindowFullscreen(window.get(), SDL_WINDOW_FULLSCREEN);
-    
+	
 	while (state != ProgramState::Quit) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
@@ -38,7 +40,7 @@ void ProgramObject::MainLoop() {
         }
 
         // clear screen
-        SDL_SetRenderDrawColor(renderer.get(), 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer.get(), 1, 87, 155, 1);
         SDL_RenderClear(renderer.get());
 
         Update();
@@ -55,19 +57,16 @@ void ProgramObject::Update() {
 
 void ProgramObject::Render() const {
     // insert code here
-
-    text_renderer.RenderBaked(sample_text_object, glm::ivec2(100,250));
-    text_renderer.RenderDirect("Jeopardy", glm::ivec2(100,350));
-
+    text_renderer_H0.RenderBaked(text_object_jeopardy, glm::ivec2(100,250));
 }
 
 void ProgramObject::PlaySound() {
-	Mix_VolumeChunk(sample_chunk.get(),MIX_MAX_VOLUME/2);
+	Mix_VolumeChunk(sample_chunk.get(),MIX_MAX_VOLUME/5);
     Mix_PlayChannel(0,sample_chunk.get(),0);
 }
 
 void ProgramObject::StartMusic() {
     // -1 for infinite loop
-    Mix_PlayMusic(sample_music.get(),-1);
-    Mix_VolumeMusic(MIX_MAX_VOLUME/4);
+    Mix_PlayMusic(music_jeopardy.get(),-1);
+    Mix_VolumeMusic(MIX_MAX_VOLUME);
 }

@@ -32,7 +32,7 @@ public:
     TextRenderer(SDL_Renderer* renderer, std::string fontfile, int ptsize) : r(renderer), font(TTF_OpenFont(fontfile.c_str(), ptsize)) {}
 
     TextObject BakeString(std::string text) const {
-        UniqueSurface surface = TTF_RenderUTF8_Solid(font.get(), text.c_str(), { 255, 255, 255, 255 });
+        UniqueSurface surface = TTF_RenderUTF8_Solid(font.get(), text.c_str(), { 221, 44, 9, 1 });
         glm::ivec2 size(surface->w, surface->h);
         UniqueTexture texture = SDL_CreateTextureFromSurface(r, surface.get());
         return {std::move(text), std::move(texture), size};
